@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "description": "an api for scan result ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node_modules/.bin/nodemon server.js"
+  },
+  "keywords": [
+    "scan",
+    "result",
+    "scanresult",
+    "scan-result",
+    "api",
+    "mongo"
+  ],
+  "author": "phanthehien@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.5.5",
+    "node": "^13.10.1",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
