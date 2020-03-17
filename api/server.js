@@ -34,7 +34,7 @@ const startServer = () => {
 
 const initApp = () => {
   const MongoClient = require('mongodb').MongoClient;
-  const url = "mongodb://localhost:27017/";
+  const url = "mongodb://mongo:27017/";
 
   MongoClient.connect(url, { useUnifiedTopology: true }, function (err, mongodb) {
     if (err) throw err;
