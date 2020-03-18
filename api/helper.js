@@ -34,9 +34,8 @@ const error = (res, error = 'An unknown error occurred', statusCode = 500) => {
 
 const success = (res, data = null) => {
   addHeaders(res);
-
+  
   res.statusCode = 200;
-
   res.end(JSON.stringify({
       status: 'success',
       data
