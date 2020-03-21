@@ -6,10 +6,17 @@ import {
   Icon,
 } from "semantic-ui-react"
 
-const colors = {
+export const colors = {
   'HIGH': 'orange',
   'AVERAGE': 'olive',
   'LOW': 'teal'
+}
+
+export const statusColors = {
+  'Queued': 'teal',
+  'In Progress': 'olive',
+  'Success': 'green',
+  'Failure': 'orange'
 }
 
 const icons = {

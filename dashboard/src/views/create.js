@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from "react"
+import { useState } from "react"
 import {
   Button,
   Form,
@@ -9,15 +9,25 @@ import {
   Label,
   Modal,
   Icon,
-} from "semantic-ui-react";
+  Dropdown
+} from "semantic-ui-react"
 
-import { createScanResult } from '../api';
+import { createScanResult } from '../api'
+
+const statuses = ['Queued', 'In Progress', 'Success', 'Failure']
+
+const stateOptions = statuses.map(status => ({
+  key: status,
+  text: status,
+  value: status,
+}))
 
 const CreateScanResult = () => {
   const [repositoryName, setRepositoryName] = useState('')
   const [findings, setFindings] = useState('')
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [stateOption, setStateOption] = useState()
 
   const isValidJson = () => {
     if (findings) {
@@ -32,11 +42,18 @@ const CreateScanResult = () => {
     return true
   }
 
+  const closeModal = () => {
+    setOpen(false)
+    setRepositoryName('')
+    setFindings('')
+    setStateOption('')
+  }
+
   const create = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const data = { repositoryName, findings }
+      const data = { repositoryName, findings, status: stateOption }
       const response = await createScanResult(data)
       setLoading(false)
 
@@ -64,15 +81,28 @@ const CreateScanResult = () => {
                 focus
                 icon='github' 
                 iconPosition='left' 
-                placeholder='Repository name' 
+                placeholder='Input repository name' 
                 value={repositoryName}
                 onChange={e => setRepositoryName(e.target.value)}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Dropdown
+                fluid
+                icon='fork'
+                labeled
+                button
+                className='icon'
+                value={stateOption}
+                options={stateOptions} 
+                placeholder="Select status"
+                onChange={(_, data) => setStateOption(data.value)}
               />
             </Form.Field>
             <Form.TextArea 
               error={!isValidJson()}
               rows="15" 
-              placeholder="Findings" 
+              placeholder="Input findings in json format" 
               value={findings}
               onChange={e => setFindings(e.target.value)}
             />
@@ -93,7 +123,7 @@ const CreateScanResult = () => {
                 New record has been created.
               </Modal.Content>
               <Modal.Actions>
-                <Button color='teal' onClick={() => setOpen(false)}>
+                <Button color='teal' onClick={closeModal}>
                   <Icon name='checkmark' /> Close
                 </Button>
               </Modal.Actions>

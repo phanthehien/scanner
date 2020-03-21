@@ -61,8 +61,8 @@ const create = (db) => async (_, res, param, postData) => {
       repositoryName, 
       findings, 
       queuedAt = new Date().getTime(), 
-      scanningAt, 
-      finishedAt 
+      scanningAt = (status === statuses[0] ? null : new Date().getTime()), 
+      finishedAt = (statuses.indexOf(status) <= 1 ? null : new Date().getTime()),
     } = postData;
 
     const response = await db.collection(collectionName)

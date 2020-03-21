@@ -3,17 +3,19 @@ import {
   Card,
 } from "semantic-ui-react"
 
-import { FindingsLabel, getLabelTime } from './findings'
+import { FindingsLabel, getLabelTime, statusColors } from './findings'
 
 const ScanResultRow = ({ data }) => {
-  const { repositoryName, findings } = data
+  const { repositoryName, findings, status } = data
 
   return (
-    <Card key={repositoryName}>
-      <Card.Content header={repositoryName} />
-      <Card.Content description={getLabelTime(data)} />
-      <Card.Content extra>
-        <FindingsLabel findings={findings} />
+    <Card key={repositoryName} color={statusColors[status]} raised>
+      <Card.Content>
+        <Card.Header> { repositoryName} </Card.Header>
+        <Card.Meta> { getLabelTime(data) } </Card.Meta> 
+        <Card.Description>
+          <FindingsLabel findings={findings} />
+        </Card.Description>
       </Card.Content>
     </Card>
   );

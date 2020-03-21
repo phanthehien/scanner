@@ -1,14 +1,17 @@
-import React from "react";
+import React from "react"
 import {
   Grid,
   Header,
   Table,
   Loader,
-} from "semantic-ui-react";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+} from "semantic-ui-react"
+import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react"
 
-import { getScanResult } from '../api';
+import { colors } from '../components/findings'
+import { getScanResult } from '../api'
+
+const Severities = Object.keys(colors)
 
 const renderRow = (finding, index) => {
   const { 
@@ -26,8 +29,12 @@ const renderRow = (finding, index) => {
         </Header>
       </Table.Cell>
       <Table.Cell> { description } </Table.Cell>
-      <Table.Cell> 
-        <Header as='h4' textAlign='center'>
+      <Table.Cell
+        negative={Severities[0] === severity}
+        warning={Severities[1] === severity}
+        positive={Severities[2] === severity}
+        > 
+        <Header as='h4' color={colors[severity]} textAlign='center'>
           { severity }
         </Header>
       </Table.Cell>

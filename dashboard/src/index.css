@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ui.fluid.dropdown {
+  background: #fff;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+}
+
+.ui.active.button:hover {
+  background: #fff;
+  border: 1px solid rgba(34,36,38,.15);
+  color: rgba(0,0,0,.87);
+}
+
+.ui.labeled.icon.button {
+  padding-left: 2.67142857em !important;
+  color: rgba(0,0,0,.87);
+}
+
+.ui.labeled.icon.button > .icon {
+  background-color: #fff;
+}
+
+.ui.button {
+  font-weight: 100;
+}
