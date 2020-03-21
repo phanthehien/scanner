@@ -1,26 +1,26 @@
 import React from 'react';
-import 'semantic-ui-css/semantic.min.css'
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
   Link,
+  Redirect,
 } from "react-router-dom";
 import {
   Menu,
   Container
 } from "semantic-ui-react";
+import 'semantic-ui-css/semantic.min.css'
 
-import Create from './View/Create'
-
-
+import Create from './views/create'
+import List from './views/list'
+import ShowFindings from './views/showFindings'
 
 function App() {
   return (
-    <Router>
-      <Container>
-
-          <Menu compact>
+    <BrowserRouter>
+      <Container style={{ padding: "20px" }}> 
+          <Menu>
             <Menu.Item link>
               <Link to="/create">Create</Link>
             </Menu.Item>
@@ -32,9 +32,18 @@ function App() {
           <Route path="/create">
             <Create />
           </Route>
+          <Route path="/result/:id">
+            <ShowFindings />
+          </Route>
+          <Route path="/result">
+            <List />
+          </Route>
+          <Route path="/">
+            <Redirect to="/create" />
+          </Route>
         </Switch>
       </Container>
-    </Router>
+    </BrowserRouter>
   );
 }
 

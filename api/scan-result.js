@@ -8,6 +8,12 @@ const collectionName = 'ScanResult';
 
 const statuses = ['Queued', 'In Progress', 'Success', 'Failure'];
 
+function sleep(duration) {
+  return new Promise(function(resolve) {
+    setTimeout(()=> { resolve(0) }, duration);
+  })
+}
+
 const list = (db) => async (req, res) => {
   try {
     let filter = {}
@@ -22,6 +28,8 @@ const list = (db) => async (req, res) => {
       .find(filter)
       .toArray();
 
+    await sleep(500)
+
     return helper.success(res, items);
   }
   catch (error) {
@@ -33,6 +41,7 @@ const show = (db) => async (_, res, param) => {
   try {
     const query = { _id: mongo.ObjectID(param) };
     const item = await db.collection(collectionName).findOne(query);
+    await sleep(500)
 
     if (item) {
       return helper.success(res, item);
@@ -47,13 +56,21 @@ const show = (db) => async (_, res, param) => {
 
 const create = (db) => async (_, res, param, postData) => {
   try {
-    const { status, repositoryName, findings, queuedAt, scanningAt, finishedAt } = postData;
+    const { 
+      status = statuses[0],
+      repositoryName, 
+      findings, 
+      queuedAt = new Date().getTime(), 
+      scanningAt, 
+      finishedAt 
+    } = postData;
+
     const response = await db.collection(collectionName)
         .insertOne({
           status, 
           repositoryName, 
-          findings, 
-          queuedAt, 
+          findings: JSON.parse(findings), 
+          queuedAt , 
           scanningAt, 
           finishedAt
         });

@@ -1,5 +1,12 @@
 version: "3"
 services:
+  dashboard:
+    build: ./dashboard
+    command: npm start
+    volumes:
+      - ./dashboard/:/usr/src/app
+    ports:
+      - "8081:8081"
   api:
     build: ./api
     command: nodemon server.js
@@ -9,7 +16,6 @@ services:
       - "8080:8080"
     depends_on:
       - mongo
-  
   mongo:
     image: mongo
     ports:
